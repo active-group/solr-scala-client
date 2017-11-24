@@ -241,4 +241,10 @@ trait QueryBuilderBase[Repr <: QueryBuilderBase[Repr]] {
     )
   }
 
+  def setParam(name: String, value: String*) = {
+    val ret = copy()
+    ret.solrQuery.set(name, value :_*)
+    ret
+  }
+
 }
