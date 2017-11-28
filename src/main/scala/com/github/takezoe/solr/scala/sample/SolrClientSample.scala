@@ -12,6 +12,7 @@ object SolrClientSample extends App {
 //    println(request.getParams)
 //  }
   val client = new SolrClient("http://localhost:8983/solr")
+  val collectionName = "collection"
 
   // register
 //  client
@@ -21,13 +22,13 @@ object SolrClientSample extends App {
 //    .commit
 
   client
-    .add(Product("001", None,           "ThinkPad X201s"))
-    .add(Product("002", Some("Lenovo"), "ThinkPad X202"))
-    .add(Product("003", Some("Lenovo"), "ThinkPad X100e"))
+    .add(collectionName, Product("001", None,           "ThinkPad X201s"))
+    .add(collectionName, Product("002", Some("Lenovo"), "ThinkPad X202"))
+    .add(collectionName, Product("003", Some("Lenovo"), "ThinkPad X100e"))
     .commit
 
   // query (Map) without facet search
-  val result1 = client.query("name:?name?")
+  val result1 = client.query(collectionName, "name:?name?")
         .fields("id", "manu", "name")
         .sortBy("id", Order.asc)
         .getResultAsMap(Map("name" -> "ThinkPad -X202"))
@@ -40,7 +41,7 @@ object SolrClientSample extends App {
   }
     
   // query (Map) with facet search
-  val result2 = client.query("name:%name%")
+  val result2 = client.query(collectionName, "name:%name%")
         .fields("id", "manu", "name")
         .facetFields("manu")
         .sortBy("id", Order.asc)
@@ -63,7 +64,7 @@ object SolrClientSample extends App {
 
   // query (case class)
   println("-- case class --")
-  val result3 = client.query("name:%name%")
+  val result3 = client.query(collectionName, "name:%name%")
         .fields("id", "manu", "name")
         .facetFields("manu")
         .sortBy("id", Order.asc)
