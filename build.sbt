@@ -4,18 +4,18 @@ organization := "com.github.takezoe"
 
 version := "0.0.17-SNAPSHOT"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 scalacOptions += "-feature"
 
-crossScalaVersions := Seq("2.11.11", "2.12.3")
+crossScalaVersions := Seq("2.11.11", "2.12.4")
 
 resolvers += "Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository"
 
 libraryDependencies ++= Seq(
-  "org.apache.solr"         % "solr-solrj"               % "6.3.0"   % "compile",
+  "org.apache.solr"         % "solr-solrj"               % "7.1.0"   % "compile",
   "org.asynchttpclient"     % "async-http-client"        % "2.0.37"  % "compile",
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.6",
   "org.scalatest"          %% "scalatest"                % "3.0.1"   % "test",
   "org.mockito"             % "mockito-core"             % "2.2.22"  % "test",
   "commons-logging"         % "commons-logging"          % "1.2"     % "runtime"
