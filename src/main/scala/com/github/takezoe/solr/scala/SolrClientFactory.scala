@@ -19,7 +19,7 @@ object SolrClientFactory {
    * }}}
    */
   def basicAuth(username: String, password: String) = (url: String) => {
-    val client = new ApacheHttpSolrClient.Builder(url).build()
+    val client = new ApacheHttpSolrClient(url)
     val jurl = new java.net.URL(client.getBaseURL)
 
     val httpClient = client.getHttpClient.asInstanceOf[DefaultHttpClient]
@@ -48,7 +48,7 @@ object SolrClientFactory {
    * }}}
    */
   def dummy(listener: (SolrRequest[_ <: SolrResponse]) => Unit) = (url: String) => new ApacheSolrClient {
-    def close() = {}
+    def shutdown() = {}
     override def request(request: SolrRequest[_ <: SolrResponse], collection: String): NamedList[AnyRef] = {
       listener(request)
 
